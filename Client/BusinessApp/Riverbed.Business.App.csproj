@@ -11,8 +11,8 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\Business.Server.Data\Business.Server.Data.csproj" />
-    <ProjectReference Include="..\BusinessSharedUI\BusinessSharedUI.csproj" />
+    <ProjectReference Include="..\..\Data\RiverbedDB\Business.Server.Data.csproj" />
+    <ProjectReference Include="..\..\Shared\SharedUI\BusinessSharedUI.csproj" />
   </ItemGroup>
   
   <ProjectExtensions><VisualStudio><UserProperties UseCdnSupport="True" /></VisualStudio></ProjectExtensions>

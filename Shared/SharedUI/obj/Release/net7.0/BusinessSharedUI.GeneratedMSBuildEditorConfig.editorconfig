@@ -1,0 +1,61 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = BusinessSharedUI
+build_property.RootNamespace = BusinessSharedUI
+build_property.ProjectDir = D:\ProjectsGit\RiverbedSoftwareServices\riverbed-software-services\Shared\SharedUI\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\ProjectsGit\RiverbedSoftwareServices\riverbed-software-services\Shared\SharedUI
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/ProjectsGit/RiverbedSoftwareServices/riverbed-software-services/Shared/SharedUI/Pages/Editors/NewJobEntry.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRWRpdG9yc1xOZXdKb2JFbnRyeS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectsGit/RiverbedSoftwareServices/riverbed-software-services/Shared/SharedUI/Pages/JobList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSm9iTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectsGit/RiverbedSoftwareServices/riverbed-software-services/Shared/SharedUI/Pages/RbJobs.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmJKb2JzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectsGit/RiverbedSoftwareServices/riverbed-software-services/Shared/SharedUI/Pages/RbsCrewPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmJzQ3Jld1BhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectsGit/RiverbedSoftwareServices/riverbed-software-services/Shared/SharedUI/Pages/RbsEntryTypePage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmJzRW50cnlUeXBlUGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectsGit/RiverbedSoftwareServices/riverbed-software-services/Shared/SharedUI/Pages/RbsLogEntryPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmJzTG9nRW50cnlQYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectsGit/RiverbedSoftwareServices/riverbed-software-services/Shared/SharedUI/Pages/RbsStatusCodePage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmJzU3RhdHVzQ29kZVBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectsGit/RiverbedSoftwareServices/riverbed-software-services/Shared/SharedUI/Pages/RbUsersPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmJVc2Vyc1BhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectsGit/RiverbedSoftwareServices/riverbed-software-services/Shared/SharedUI/Pages/UserBusinessDisplay.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlckJ1c2luZXNzRGlzcGxheS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectsGit/RiverbedSoftwareServices/riverbed-software-services/Shared/SharedUI/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProjectsGit/RiverbedSoftwareServices/riverbed-software-services/Shared/SharedUI/Pages/JobsCOGS.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSm9ic0NPR1MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-tdiwdpchd1

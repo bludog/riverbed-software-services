@@ -1,0 +1,106 @@
+﻿@page "/joblist/rbslogentry/{id}"
+@using Business.Server.Data
+@using Business.Server.Data.Repository
+@using Business.Server.Data.Repository.Models
+@using Telerik.Blazor.Components
+@using Telerik.Blazor
+@using Telerik.FontIcons;
+
+@inject IRbBusinessService BusinessService
+@inject NavigationManager NavManager
+
+<h3>Rbs Log Entry</h3>
+
+<TelerikGrid Data=@logEntries
+             OnUpdate="@UpdateHandler"
+             OnDelete="@DeleteHandler"
+             OnCreate="@CreateHandler"
+             OnCancel="@CancelHandler"
+             ConfirmDelete="true"
+             EditMode="Telerik.Blazor.GridEditMode.Popup">
+    <GridToolBarTemplate>
+        <GridCommandButton Command="Add" Icon="@FontIcon.Plus">Add</GridCommandButton>
+    </GridToolBarTemplate>
+    <GridColumns>
+        <GridColumn Width="100px" Field="@nameof(RbsLogEntry.EntryTypeId)" Title="Entry Type" >
+            <Template>
+                @{
+                    var log = context as RbsLogEntry;
+                    var statusCode = entryTypes.FirstOrDefault(j => j.Id == log.EntryTypeId)?.EntryType;
+                    @statusCode
+                    ;
+                }
+            </Template>
+            <EditorTemplate>
+                @{
+                    var log = context as RbsLogEntry;
+                    <TelerikDropDownList Data="@entryTypes"
+                                         @bind-Value="@log.EntryTypeId"
+                                     TextField="EntryType"
+                                     ValueField="Id">
+                    </TelerikDropDownList>
+                }
+
+            </EditorTemplate>
+        </GridColumn>
+        <GridColumn Width="100px" DisplayFormat="{0:C0}" Field="@nameof(RbsLogEntry.Amount)" Title="Amount" />
+        <GridColumn Width="100px" Field="@nameof(RbsLogEntry.LogDescription)" Title="Description" />
+        <GridCommandColumn>
+            <GridCommandButton Command="Save" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Save" ShowInEdit="true"></GridCommandButton>
+            <GridCommandButton Command="Edit" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Pencil"></GridCommandButton>
+            <GridCommandButton Command="Delete" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Trash"></GridCommandButton>
+            <GridCommandButton Command="Cancel" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Cancel" ShowInEdit="true"></GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    public List<RbsLogEntry> logEntries { get; set; } = new List<RbsLogEntry>();
+    public List<RbsEntryType> entryTypes { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        logEntries = await BusinessService.GetAllRbsLogEntrys(int.Parse(Id));
+        entryTypes = await BusinessService.GetAllRbsEntryTypes();
+    }
+
+    async Task UpdateHandler(GridCommandEventArgs args)
+    {
+        var log = GetDataObject(args);
+        log.JobId = int.Parse(Id);
+        await BusinessService.UpdateRbsLogEntry(log);
+        await GetGridData();
+    }
+
+    async Task DeleteHandler(GridCommandEventArgs args)
+    {
+        await BusinessService.DeleteRbsLogEntry(GetDataObject(args).Id);
+        await GetGridData();
+    }
+
+    async Task CreateHandler(GridCommandEventArgs args)
+    {
+        var log = GetDataObject(args);
+        log.JobId = int.Parse(Id);
+        await BusinessService.CreateRbsLogEntry(log);
+        await GetGridData();
+    }
+
+    async Task CancelHandler(GridCommandEventArgs args)
+    {
+        await Task.Delay(1000); //simulate actual long running async operation
+    }
+
+    async Task GetGridData()
+    {
+        logEntries = await BusinessService.GetAllRbsLogEntrys(int.Parse(Id));
+    }
+
+    RbsLogEntry GetDataObject(GridCommandEventArgs args)
+    {
+        return (RbsLogEntry)args.Item;
+    }
+}
+

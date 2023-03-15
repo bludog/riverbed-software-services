@@ -1,0 +1,79 @@
+﻿@page "/rbscrews/{id}"
+
+@using Business.Server.Data
+@using Business.Server.Data.Repository
+@using Business.Server.Data.Repository.Models
+@using Telerik.Blazor.Components
+@using Telerik.Blazor
+@using Telerik.FontIcons;
+
+@inject IRbBusinessService BusinessService
+@inject NavigationManager NavManager
+
+<h3>Crews</h3>
+
+<TelerikGrid Data=@crews
+             OnUpdate="@UpdateHandler"
+             OnDelete="@DeleteHandler"
+             OnCreate="@CreateHandler"
+             OnCancel="@CancelHandler"
+             ConfirmDelete="true"
+             EditMode="Telerik.Blazor.GridEditMode.Popup">
+    <GridToolBarTemplate>
+        <GridCommandButton Command="Add" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Plus">Add</GridCommandButton>
+    </GridToolBarTemplate>
+    <GridColumns>        
+        <GridColumn Width="100px" Field="@nameof(RbsCrew.Id)" Title="Id" />
+        <GridColumn Width="180px" Field="@nameof(RbsCrew.CrewName)" Title="Id" />
+        <GridCommandColumn>
+            <GridCommandButton Command="Save" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Save" ShowInEdit="true"></GridCommandButton>
+            <GridCommandButton Command="Edit" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Pencil"></GridCommandButton>
+            <GridCommandButton Command="Delete" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Trash"></GridCommandButton>
+            <GridCommandButton Command="Cancel" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Cancel" ShowInEdit="true"></GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    public List<Business.Server.Data.Repository.Models.RbsCrew> crews { get; set; } = new List<Business.Server.Data.Repository.Models.RbsCrew>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        crews = await BusinessService.GetAllRbsCrews(int.Parse(Id));        
+    }
+
+    async Task UpdateHandler(GridCommandEventArgs args)
+    {
+        await BusinessService.UpdateRbsCrew(GetDataObject(args));
+        await GetGridData();
+    }
+
+    async Task DeleteHandler(GridCommandEventArgs args)
+    {
+        await BusinessService.DeleteRbsCrew(GetDataObject(args).Id);
+        await GetGridData();
+    }
+
+    async Task CreateHandler(GridCommandEventArgs args)
+    {       
+        await BusinessService.CreateRbsCrew(GetDataObject(args));
+        await GetGridData();
+    }
+
+    async Task CancelHandler(GridCommandEventArgs args)
+    {
+        await Task.Delay(1000); //simulate actual long running async operation
+    }      
+
+    async Task GetGridData()
+    {
+        crews = await BusinessService.GetAllRbsCrews(int.Parse(Id));
+    }
+
+    RbsCrew GetDataObject(GridCommandEventArgs args)
+    {
+        return (RbsCrew)args.Item;
+    }
+}

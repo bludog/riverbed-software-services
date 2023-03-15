@@ -1,0 +1,80 @@
+﻿@page "/rbsstatuscode"
+
+@using Business.Server.Data
+@using Business.Server.Data.Repository
+@using Business.Server.Data.Repository.Models
+@using Telerik.Blazor.Components
+@using Telerik.Blazor
+@using Telerik.FontIcons;
+
+@inject IRbBusinessService BusinessService
+@inject NavigationManager NavManager
+
+<h3>Status Codes</h3>
+
+<TelerikGrid Data=@statusCodes
+             OnUpdate="@UpdateHandler"
+             OnDelete="@DeleteHandler"
+             OnCreate="@CreateHandler"
+             OnCancel="@CancelHandler"
+             ConfirmDelete="true"
+             EditMode="Telerik.Blazor.GridEditMode.Popup">
+    <GridToolBarTemplate>
+        <GridCommandButton Command="Add" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Plus">Add</GridCommandButton>
+    </GridToolBarTemplate>
+    <GridColumns>
+        <GridColumn Width="100px" Field="@nameof(RbsStatusCode.Id)" Title="Id" />
+        <GridColumn Width="100px" Field="@nameof(RbsStatusCode.StatusCode)" Title="Id" />
+        <GridCommandColumn>
+            <GridCommandButton Command="Save" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Save" ShowInEdit="true"></GridCommandButton>
+            <GridCommandButton Command="Edit" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Pencil"></GridCommandButton>
+            <GridCommandButton Command="Delete" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Trash"></GridCommandButton>
+            <GridCommandButton Command="Cancel" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Cancel" ShowInEdit="true"></GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    public List<RbsStatusCode> statusCodes { get; set; } = new List<RbsStatusCode>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        statusCodes = await BusinessService.GetAllRbsStatusCodes();
+    }
+
+    async Task UpdateHandler(GridCommandEventArgs args)
+    {
+        await BusinessService.UpdateRbsStatusCode(GetDataObject(args));
+        await GetGridData();
+    }
+
+    async Task DeleteHandler(GridCommandEventArgs args)
+    {
+        await BusinessService.DeleteRbsStatusCode(GetDataObject(args).Id);
+        await GetGridData();
+    }
+
+    async Task CreateHandler(GridCommandEventArgs args)
+    {
+        await BusinessService.CreateRbsStatusCode(GetDataObject(args));
+        await GetGridData();
+    }
+
+    async Task CancelHandler(GridCommandEventArgs args)
+    {
+        await Task.Delay(1000); //simulate actual long running async operation
+    }
+
+    async Task GetGridData()
+    {
+        statusCodes = await BusinessService.GetAllRbsStatusCodes();
+    }
+
+    RbsStatusCode GetDataObject(GridCommandEventArgs args)
+    {
+        return (RbsStatusCode)args.Item;
+    }
+}
+

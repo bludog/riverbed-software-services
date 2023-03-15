@@ -1,0 +1,44 @@
+﻿@page "/rbusers"
+
+@using Business.Server.Data
+@using Business.Server.Data.Repository
+@using Business.Server.Data.Repository.Models
+@inject IRbBusinessService BusinessService
+@inject NavigationManager NavManager
+
+<h3>AllRbUsers</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>User Name</th>
+            <th>Profile</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usr in users)
+        {
+            <tr>
+                <td>@usr.FirstName @usr.LastName</td>
+                <td>@usr.EmailAddress</td>
+                <td><button class="btn btn-primary" @onclick="(() => ShowUser(usr.Id))">></button></td>
+            </tr>           
+        }
+    </tbody>
+</table>
+
+
+@code {
+    public List<RbsUser> users { get; set; } = new List<RbsUser>();
+  
+     protected override async Task OnInitializedAsync()
+    {
+        users = await BusinessService.GetAllRbsUsers();
+    }
+
+    void ShowUser(int id)
+    {
+        NavManager.NavigateTo($"/userbusinessdisplay/{id}");
+    }
+}

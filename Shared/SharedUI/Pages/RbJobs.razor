@@ -1,0 +1,183 @@
+﻿@page "/rbjobs/{id}"
+
+@using Business.Server.Data
+@using Business.Server.Data.Repository
+@using Business.Server.Data.Repository.Models
+@using Telerik.Blazor.Components
+@using Telerik.Blazor
+@using Telerik.FontIcons;
+
+@inject IRbBusinessService BusinessService
+@inject NavigationManager NavManager
+
+@*This Style will change the edit Form to 3 columns if there are too many fields*@
+<style>
+
+    .k-window .k-form {
+        column-count: 3;
+    }
+
+    .k-window-content {
+        max-height: 500px;
+        /* you can also use relative units, e.g. 60% of the viewport height: */
+        /* max-height: 60vh; */
+    }
+
+</style>
+
+<h3>User Jobs</h3>
+
+<TelerikGrid Data=@jobs
+             OnUpdate="@UpdateHandler"
+             OnDelete="@DeleteHandler"
+             OnCreate="@CreateHandler"
+             OnCancel="@CancelHandler"
+             ConfirmDelete="true"
+             EditMode="Telerik.Blazor.GridEditMode.Popup">
+    <GridToolBarTemplate>
+        <GridCommandButton Command="Add" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Plus">Add</GridCommandButton>
+    </GridToolBarTemplate>
+    <GridColumns>     
+        <GridColumn Width="100px" DisplayFormat="{0:dd-MM-yy}" Field="@nameof(RbsJob.DateBooked)" Title="Booked" />
+        <GridColumn Width="100px" DisplayFormat="{0:dd-MM-yy}" Field="@nameof(RbsJob.DateCompleted)" Title="Completed" />
+        <GridColumn Field="@nameof(RbsJob.JobName)" Title="Job Name">
+           @* <Template>
+                @{
+                    var job = (RbsJob)context;
+                }
+                @job.CustFirstName  @job.CustLastName (@job.JobName)
+            </Template>*@
+            </GridColumn>
+        <GridColumn Width="200px" Field="@nameof(RbsJob.JobDescription)" Title="Description" />
+        <GridColumn Width="150px" Field="@nameof(RbsJob.CustFirstName)" Title="First Name" />
+        <GridColumn Width="150px" Field="@nameof(RbsJob.CustLastName)" Title="Last Name" />
+        <GridColumn Width="100px" DisplayFormat="{0:C0}" Field="@nameof(RbsJob.JobTotal)" Title="Total" />
+        <GridColumn Field="@nameof(RbsJob.CrewId)" Title="Crew" >
+            <Template>
+                @{
+                    var job = context as RbsJob;
+                    var crewName = crews.FirstOrDefault(c => c.Id == job.CrewId)?.CrewName;
+                    @crewName;
+                }
+            </Template>
+            <EditorTemplate>
+                @{
+                    var job = context as RbsJob;
+                    <TelerikDropDownList 
+                            Data="@crews"
+                            @bind-Value="@job.CrewId"
+                            TextField="CrewName"
+                            ValueField="Id">
+                      </TelerikDropDownList>
+                }
+                
+            </EditorTemplate>
+        </GridColumn>
+        <GridColumn Width="100px" DisplayFormat="{0:C0}" Field="@nameof(RbsJob.JobLaborCost)" Title="Labor Paid" />
+        <GridColumn Width="100px" DisplayFormat="{0:C0}" Field="@nameof(RbsJob.JobMaterialCost)" Title="Material Cost" />
+        <GridColumn Width="100px" DisplayFormat="{0:C0}" Field="@nameof(RbsJob.JobOverheadCost)" Title="Overhead" />
+        <GridColumn>
+            <Template>
+                @{
+                    var job = context as RbsJob;
+                    <TelerikButton OnClick="() => NavigateToEditor(job.Id)">Edit</TelerikButton>
+                    <TelerikButton OnClick="@NavigateToNewEditor">New</TelerikButton>
+                }                
+            </Template>
+            
+        </GridColumn>
+        <GridColumn Width="100px" Field="@nameof(RbsJob.JobStatusId)" Title="Status" >
+            <Template>
+                @{
+                    var job = context as RbsJob;
+                    var statusCode = statusCodes.FirstOrDefault(j => j.Id == job.JobStatusId)?.StatusCode;
+                    @statusCode;
+                }
+            </Template>
+            <EditorTemplate>
+                @{
+                    var job = context as RbsJob;
+                    <TelerikDropDownList Data="@statusCodes"
+                                         @bind-Value="@job.JobStatusId"
+                                     TextField="StatusCode"
+                                     ValueField="Id">
+                    </TelerikDropDownList>
+                }
+
+            </EditorTemplate>
+        </GridColumn>
+        <GridCommandColumn>
+            <GridCommandButton Command="Save" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Save" ShowInEdit="true"></GridCommandButton>
+            <GridCommandButton Command="Edit" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Pencil"></GridCommandButton>
+            <GridCommandButton Command="Delete" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Trash"></GridCommandButton>
+            <GridCommandButton Command="Cancel" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Cancel" ShowInEdit="true"></GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+</TelerikGrid>
+
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    public List<RbsJob> jobs { get; set; } = new List<RbsJob>();
+    public List<RbsCrew> crews { get; set; } = new List<RbsCrew>();
+    public List<Business.Server.Data.Repository.Models.RbsStatusCode> statusCodes { get; set; } = new List<Business.Server.Data.Repository.Models.RbsStatusCode>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        statusCodes = await BusinessService.GetRbsJobStatusCodes();
+        crews = await BusinessService.GetRbsCrews(int.Parse(Id));
+        jobs = await BusinessService.GetRbsJobsByUser(int.Parse(Id));
+    }
+
+    async Task UpdateHandler(GridCommandEventArgs args)
+    {
+        await BusinessService.UpdateRbsJob(GetDataObject(args));
+        await GetGridData();
+    }
+
+    async Task DeleteHandler(GridCommandEventArgs args)
+    {
+        await BusinessService.DeleteRbsJob(GetDataObject(args).Id);
+        await GetGridData();
+    }
+
+    async Task CreateHandler(GridCommandEventArgs args)
+    {
+        var job = GetDataObject(args);
+        job.ParentId = int.Parse(Id);
+        job.Include = true;
+        await BusinessService.CreateRbsJob(job);
+        var log = new RbsLogEntry { LogDescription = "Initialize", Amount = 0, JobId = job.Id, EntryTypeId = 1 };
+        await BusinessService.CreateRbsLogEntry(log);
+        await GetGridData();
+    }
+
+    async Task CancelHandler(GridCommandEventArgs args)
+    {
+        await Task.Delay(1000); //simulate actual long running async operation
+    }
+
+    async Task GetGridData()
+    {
+        jobs = await BusinessService.GetRbsJobsByUser(int.Parse(Id));
+    }
+
+    RbsJob GetDataObject(GridCommandEventArgs args)
+    {
+        return (RbsJob)args.Item;
+    }
+
+    void ShowDetails(int id)
+    {
+        NavManager.NavigateTo($"/rbjobdetails/{id}");
+    }
+
+    void NavigateToEditor(int jobId) => NavManager.NavigateTo($"/editors/jobentry/{jobId}/{Id}");
+
+    void NavigateToNewEditor()
+    {
+        NavManager.NavigateTo($"/editors/jobentry/0/{Id}");
+    }
+}

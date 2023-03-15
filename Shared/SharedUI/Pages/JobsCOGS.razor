@@ -1,0 +1,54 @@
+@page "/usercogjobs/{id}"
+@using Business.Server.Data
+@using Business.Server.Data.Repository
+@using Business.Server.Data.Repository.Models
+@using Telerik.Blazor.Components
+
+@inject IRbBusinessService BusinessService
+@inject NavigationManager NavManager
+
+<h3>ROI For All Jobs</h3>
+
+<TelerikGrid Data=@jobs>
+    <GridColumns>
+        <GridColumn Width="100px" DisplayFormat="{0:dd-MM-yy}" Field="@nameof(VwrbsAllJobsWithActual.DateBooked)" Title="Booked" />
+        <GridColumn Width="100px" DisplayFormat="{0:dd-MM-yy}" Field="@nameof(VwrbsAllJobsWithActual.DateCompleted)" Title="Completed" />
+        <GridColumn Field="@nameof(VwrbsAllJobsWithActual.JobName)" Title="Job Name">
+            <Template>
+                @{
+                    var job = (VwrbsAllJobsWithActual)context;
+                }
+                @job.CustFirstName  @job.CustLastName (@job.JobName)
+            </Template>
+        </GridColumn>
+        <GridColumn Width="100px" DisplayFormat="{0:C0}" Field="@nameof(VwrbsAllJobsWithActual.JobTotal)" Title="Total" />
+        <GridColumn Field="@nameof(VwrbsAllJobsWithActual.CrewName)" Title="Crew" />
+        <GridColumn Width="100px" DisplayFormat="{0:C0}" Field="@nameof(VwrbsAllJobsWithActual.JobTotalActual)" Title="Total Paid" />
+        <GridColumn Width="100px" DisplayFormat="{0:C0}" Field="@nameof(VwrbsAllJobsWithActual.JobLaborCostActual)" Title="Labor Paid" />
+        <GridColumn Width="100px" DisplayFormat="{0:C0}" Field="@nameof(VwrbsAllJobsWithActual.JobMaterialCostActual)" Title="Material Cost" />
+        <GridColumn Width="100px" DisplayFormat="{0:C0}" Field="@nameof(VwrbsAllJobsWithActual.JobOverheadCost)" Title="Overhead" />
+    </GridColumns>
+</TelerikGrid>
+
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    public List<VwrbsAllJobsWithActual> jobs { get; set; } = new List<VwrbsAllJobsWithActual>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        jobs = await BusinessService.GetRbsJobs(int.Parse(Id));
+
+        foreach (var job in jobs)
+        {
+            job.JobDescription = ($"{job.CustFirstName} {job.CustLastName} ({job.JobName})");
+        }
+    }
+
+    void ShowDetails(int id)
+    {
+        NavManager.NavigateTo($"/rbjobdetails/{id}");
+    }
+}

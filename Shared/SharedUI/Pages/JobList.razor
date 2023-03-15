@@ -1,0 +1,169 @@
+﻿@page "/joblist/{id}"
+
+@using Business.Server.Data
+@using Business.Server.Data.Repository
+@using Business.Server.Data.Repository.Models
+@using Telerik.Blazor.Components
+@using Telerik.Blazor
+@inject IRbBusinessService BusinessService
+@inject NavigationManager NavManager
+
+
+
+<style>
+    table,
+    td,
+    td {
+        text-align: right;
+        width: 300px
+    }
+</style>
+
+
+
+<TelerikListView Data=@jobs
+                 Pageable="true"
+                 PageSize="5">
+    <HeaderTemplate>
+        Job - Task Entries
+    </HeaderTemplate>
+    <Template>
+        <div class="k-card k-card-horizontal">
+            <div class="k-vbox k-flex-grow">
+                <div class="k-card-body">
+                    <h4 class="k-card-title">@context.CustFirstName @context.CustLastName (@context.JobName)</h4>
+                    <h5 class="k-card-subtitle">@context.JobDescription</h5>
+                    @*<div class="k-card-text">Job Total: @context.JobTotal.ToString("C0")</div>                    
+                    <div class="k-card-text">Actual Total:  Labor Paid: @context.JobLaborCostActual?.ToString("C0") </div>
+                    <div class="k-card-text">Material Paid: @context.JobMaterialCostActual?.ToString("C0") Overhead: @context.JobOverheadCost.ToString("C0")</div>*@
+                    <table >
+                        <tbody>
+                            <tr>
+                                <th ></th>
+                                <th style="font-weight: bold">Expected</th>
+                                <th style="font-weight: bold">Actual</th>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold">Labor:</td>
+                                <td >@context.JobLaborCost.ToString("C0")</td>
+                                <td >@context.JobLaborCostActual?.ToString("C0")</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold">Materials:</td>
+                                <td >@context.JobMaterialCost.ToString("C0")</td>
+                                <td >@context.JobMaterialCostActual?.ToString("C0")</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold">Overhead:</td>
+                                <td >@context.JobOverheadCost.ToString("C0")</td>
+                                <td >@context.JobOverheadCost.ToString("C0")</td>
+                            </tr>
+                            <tr style="border-top: thin solid;">
+                                <td style="font-weight: bold">Expenses:</td>
+                                <td >@((context.JobMaterialCost + context.JobLaborCost + context.JobOverheadCost).ToString("C0"))</td>
+                                <td >@((context.JobMaterialCostActual + context.JobLaborCostActual + context.JobOverheadCost)?.ToString("C0"))</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold">Income:</td>
+                                <td >@context.JobTotal.ToString("C0")</td>
+                                <td >@context.JobTotalActual?.ToString("C0")</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold">Profit:</td>
+                                <td >@((context.JobTotal - (context.JobMaterialCost + context.JobLaborCost + context.JobOverheadCost)).ToString("C0"))</td>
+                                <td >@((context.JobTotalActual - (context.JobMaterialCostActual + context.JobLaborCostActual + context.JobOverheadCost))?.ToString("C0"))</td>
+                            </tr>
+                            <tr height="10px"></tr>    
+                            <tr>
+                                <td colspan="3" align="right">
+                                    <ListViewCommandButton OnClick="@EditEntries" FillMode="@(ThemeConstants.Button.FillMode.Flat)">Edit Tasks</ListViewCommandButton>
+                                    <ListViewCommandButton OnClick="@AddNewEntry" FillMode="@(ThemeConstants.Button.FillMode.Flat)">Add Task</ListViewCommandButton>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>                    
+                </div>
+            </div>
+        </div>
+    </Template>
+</TelerikListView>
+
+<TelerikWindow Modal="true"
+               @bind-Visible="@isModalVisible"
+               CloseOnOverlayClick="true">
+    <WindowTitle>
+        Window Title
+    </WindowTitle>
+    <WindowContent>
+        <RbsLogEntryPage Id="@selectedJobId.ToString()" />
+        <input type="button" @onclick="() => CloseModal()" value="Close" />
+    </WindowContent>
+    <WindowActions>
+        <WindowAction Name="Close" OnClick="CloseModal"/>
+    </WindowActions>
+</TelerikWindow>
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+    public int selectedJobId { get; set; }
+
+    public List<VwrbsAllJobsWithActual> jobs { get; set; } = new List<VwrbsAllJobsWithActual>();
+    public List<RbsCrew> crews { get; set; } = new List<RbsCrew>();
+    public List<Business.Server.Data.Repository.Models.RbsStatusCode> statusCodes { get; set; } = new List<Business.Server.Data.Repository.Models.RbsStatusCode>();
+
+    bool isModalVisible { get; set; } = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        statusCodes = await BusinessService.GetRbsJobStatusCodes();
+        crews = await BusinessService.GetRbsCrews(int.Parse(Id));
+        jobs = await BusinessService.GetRbsJobs(int.Parse(Id));
+    }
+
+
+    //async Task CreateHandler(ListViewCommandEventArgs args)
+    //{
+    //    var job = GetDataObject(args);
+    //    job.ParentId = int.Parse(Id);
+    //    job.Include = true;
+    //    await BusinessService.CreateRbsJob(job);
+    //    await GetGridData();
+    //}
+
+    async Task AddNewEntry(ListViewCommandEventArgs args)
+    {
+        var job = GetDataObject(args);
+        selectedJobId = job.JobId;
+        isModalVisible = true;
+        //var navPath = $"/joblist/rbslogentry/{job.Id}";
+        //NavManager.NavigateTo(navPath);
+    }
+
+    async Task EditEntries(ListViewCommandEventArgs args)
+    {
+        var job = GetDataObject(args);
+        selectedJobId = job.JobId;
+        isModalVisible = true;
+        //var navPath = $"/joblist/rbslogentry/{job.Id}";
+        //NavManager.NavigateTo(navPath);
+    }
+
+    async Task GetGridData()
+    {
+        // jobs = await BusinessService.GetRbsJobsByUser(int.Parse(Id));
+        jobs = await BusinessService.GetRbsJobs(int.Parse(Id));
+    }
+
+    VwrbsAllJobsWithActual GetDataObject(ListViewCommandEventArgs args)
+    {
+        return (VwrbsAllJobsWithActual)args.Item;
+    }
+
+    private async void CloseModal()
+    {
+        await GetGridData();
+        isModalVisible = false;
+    }
+}

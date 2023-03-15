@@ -1,0 +1,48 @@
+﻿@page "/userbusinessdisplay/{id}"
+
+@using Business.Server.Data
+@using Business.Server.Data.Repository
+@using Business.Server.Data.Repository.Models
+@using Telerik.Blazor.Components
+
+@inject IRbBusinessService BusinessService
+@inject NavigationManager NavManager
+
+<h3>User Business Display</h3>
+
+<TelerikTabStrip TabPosition="@Telerik.Blazor.TabPosition.Top">
+    <TabStripTab Title="Job COGS">
+        <JobsCOGS Id="@Id"/>
+    </TabStripTab>
+    <TabStripTab Title="User Jobs">
+        <RbJobs Id="@Id"/>
+    </TabStripTab>
+    <TabStripTab Title="Job Task Entry">
+        <JobList Id="@Id" />
+    </TabStripTab>
+    <TabStripTab Title="Settings">
+        <TelerikTabStrip TabPosition="@Telerik.Blazor.TabPosition.Top">
+            <TabStripTab Title="Crews">
+                <RbsCrewPage Id="@Id"/>
+            </TabStripTab>
+            <TabStripTab Title="Log Entry Types">
+                <RbsEntryTypePage Id="@Id" />
+            </TabStripTab>
+            <TabStripTab Title="Job Status Codes">
+                <RbsStatusCodePage Id="@Id" />
+            </TabStripTab>
+            </TelerikTabStrip>
+    </TabStripTab>
+</TelerikTabStrip>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+        
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
+
+    
+}

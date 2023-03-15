@@ -1,0 +1,105 @@
+﻿@page "/editors/jobentry/{jobid}"
+@page "/editors/jobentry/{jobid}/{parentid}"
+
+@inject IRbBusinessService BusinessService
+@inject NavigationManager NavManager
+
+<h3>NewJobEntry</h3>
+
+<div class="demo-section">
+    @if (ValidSubmit)
+    {
+        <div class="demo-alert demo-alert-success" role="alert">
+            The form was submitted successfully.
+        </div>
+    }
+    else
+    {
+        <TelerikForm Model="@job"
+                 OnValidSubmit="@HandleEntry"
+                     OnInvalidSubmit="@HandleInvalidSubmit">
+            <FormValidation>
+                <DataAnnotationsValidator></DataAnnotationsValidator>
+            </FormValidation>
+        </TelerikForm>
+    }
+</div>
+
+
+@code {
+    [Parameter]
+    public string JobId { get; set; }
+    [Parameter]
+    public string parentId { get; set; }
+    public RbsJob job { get; set; } = new RbsJob();
+    public bool ValidSubmit { get; set; } = false;
+    public bool IsNew { get; set; } = true;
+
+    public List<RbsCrew> crews { get; set; } = new List<RbsCrew>();
+    public List<Business.Server.Data.Repository.Models.RbsStatusCode> statusCodes { get; set; } = new List<Business.Server.Data.Repository.Models.RbsStatusCode>();
+
+    bool isModalVisible { get; set; } = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        statusCodes = await BusinessService.GetRbsJobStatusCodes();
+        crews = await BusinessService.GetRbsCrews(int.Parse(parentId));
+        if (JobId != null && int.Parse(JobId) > 0 && parentId != null)
+        {
+            job = BusinessService.GetRbsJob(int.Parse(JobId)).Result;
+            IsNew = false;
+        }        
+    }
+
+    async Task HandleEntry()
+    {
+        if(IsNew)
+        {
+            job.ParentId = int.Parse(JobId);
+            job.Include = true;
+            await BusinessService.CreateRbsJob(job);
+        }
+        else
+        {
+            await BusinessService.UpdateRbsJob(job);
+        }
+
+        ValidSubmit = true;
+        await Task.Delay(2000);
+        ValidSubmit = false;
+        var navPath = $"/joblist/{job.ParentId}";
+        StateHasChanged();
+        NavManager.NavigateTo(navPath);
+    }
+
+    async Task AddEntry()
+    {
+        job.ParentId = int.Parse(JobId);
+        job.Include = true;
+        await BusinessService.CreateRbsJob(job);
+
+        ValidSubmit = true;
+        await Task.Delay(2000);
+        ValidSubmit = false;
+        var navPath = $"/joblist/{job.ParentId}";
+        StateHasChanged();
+        NavManager.NavigateTo(navPath);
+    }
+
+    async Task EditEntry()
+    {
+        await BusinessService.UpdateRbsJob(job);
+
+        ValidSubmit = true;
+        await Task.Delay(2000);
+        ValidSubmit = false;
+        var navPath = $"/joblist/{job.ParentId}";
+        StateHasChanged();
+        NavManager.NavigateTo(navPath);
+    }
+
+    void HandleInvalidSubmit()
+    {
+        ValidSubmit = false;
+    }
+}

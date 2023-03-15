@@ -1,0 +1,80 @@
+﻿@page "/rbsentrytype"
+
+
+@using Business.Server.Data
+@using Business.Server.Data.Repository
+@using Business.Server.Data.Repository.Models
+@using Telerik.Blazor.Components
+@using Telerik.Blazor
+@using Telerik.FontIcons;
+
+@inject IRbBusinessService BusinessService
+@inject NavigationManager NavManager
+
+<h3>Entry Types</h3>
+
+<TelerikGrid Data=@entryTypes
+             OnUpdate="@UpdateHandler"
+             OnDelete="@DeleteHandler"
+             OnCreate="@CreateHandler"
+             OnCancel="@CancelHandler"
+             ConfirmDelete="true"
+             EditMode="Telerik.Blazor.GridEditMode.Popup">
+    <GridToolBarTemplate>
+        <GridCommandButton Command="Add" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Plus">Add</GridCommandButton>
+    </GridToolBarTemplate>
+    <GridColumns>
+        <GridColumn Width="100px" Field="@nameof(RbsEntryType.Id)" Title="Id" />
+        <GridColumn Width="150px" Field="@nameof(RbsEntryType.EntryType)" Title="Id" />
+        <GridCommandColumn>
+            <GridCommandButton Command="Save" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Save" ShowInEdit="true"></GridCommandButton>
+            <GridCommandButton Command="Edit" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Pencil"></GridCommandButton>
+            <GridCommandButton Command="Delete" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Trash"></GridCommandButton>
+            <GridCommandButton Command="Cancel" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Cancel" ShowInEdit="true"></GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    public List<RbsEntryType> entryTypes { get; set; } = new List<RbsEntryType>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        entryTypes = await BusinessService.GetAllRbsEntryTypes();
+    }
+
+    async Task UpdateHandler(GridCommandEventArgs args)
+    {
+        await BusinessService.UpdateRbsEntryType(GetDataObject(args));
+        await GetGridData();
+    }
+
+    async Task DeleteHandler(GridCommandEventArgs args)
+    {
+        await BusinessService.DeleteRbsEntryType(GetDataObject(args).Id);
+        await GetGridData();
+    }
+
+    async Task CreateHandler(GridCommandEventArgs args)
+    {
+        await BusinessService.CreateRbsEntryType(GetDataObject(args));
+        await GetGridData();
+    }
+
+    async Task CancelHandler(GridCommandEventArgs args)
+    {
+        await Task.Delay(1000); //simulate actual long running async operation
+    }
+
+    async Task GetGridData()
+    {
+        entryTypes = await BusinessService.GetAllRbsEntryTypes();
+    }
+
+    RbsEntryType GetDataObject(GridCommandEventArgs args)
+    {
+        return (RbsEntryType)args.Item;
+    }
+}

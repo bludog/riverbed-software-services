@@ -339,7 +339,14 @@ namespace Business.Server.Data
             var val = await _context.RbsLogEntries.FindAsync(Rbslogentry.Id);
             if (val == null)
                 throw new Exception("No Match found to Update.");
-            val.Id = Rbslogentry.Id;
+
+            //val.Id = Rbslogentry.Id;
+            val.JobId = Rbslogentry.JobId;
+            val.DateAdded = Rbslogentry.DateAdded;
+            val.Amount = Rbslogentry.Amount;
+            val.LogDescription = Rbslogentry.LogDescription;
+
+           // _context.Update<RbsLogEntry>(val);
             await _context.SaveChangesAsync();
         }
 

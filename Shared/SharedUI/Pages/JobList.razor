@@ -25,7 +25,7 @@
                  Pageable="true"
                  PageSize="5">
     <HeaderTemplate>
-        Job - Task Entries
+        Jobs
     </HeaderTemplate>
     <Template>
         <div class="k-card k-card-horizontal">
@@ -76,8 +76,8 @@
                             <tr height="10px"></tr>    
                             <tr>
                                 <td colspan="3" align="right">
-                                    <ListViewCommandButton OnClick="@EditEntries" FillMode="@(ThemeConstants.Button.FillMode.Flat)">Edit Tasks</ListViewCommandButton>
-                                    <ListViewCommandButton OnClick="@AddNewEntry" FillMode="@(ThemeConstants.Button.FillMode.Flat)">Add Task</ListViewCommandButton>
+                                    <ListViewCommandButton OnClick="@EditEntries" FillMode="@(ThemeConstants.Button.FillMode.Flat)">Add/Edit Task</ListViewCommandButton>
+                                    @*<ListViewCommandButton OnClick="@AddNewEntry" FillMode="@(ThemeConstants.Button.FillMode.Flat)">Add Task</ListViewCommandButton>*@
                                 </td>
                             </tr>
                         </tbody>
@@ -92,7 +92,7 @@
                @bind-Visible="@isModalVisible"
                CloseOnOverlayClick="true">
     <WindowTitle>
-        Window Title
+        Job Entries
     </WindowTitle>
     <WindowContent>
         <RbsLogEntryPage Id="@selectedJobId.ToString()" />

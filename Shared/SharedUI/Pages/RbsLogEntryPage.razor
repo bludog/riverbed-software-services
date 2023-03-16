@@ -9,9 +9,9 @@
 @inject IRbBusinessService BusinessService
 @inject NavigationManager NavManager
 
-<h3>Rbs Log Entry</h3>
+@*<h3>Log Entry List</h3>*@
 
-<TelerikGrid Data=@logEntries
+@*<TelerikGrid Data=@logEntries
              OnUpdate="@UpdateHandler"
              OnDelete="@DeleteHandler"
              OnCreate="@CreateHandler"
@@ -52,7 +52,84 @@
             <GridCommandButton Command="Cancel" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@FontIcon.Cancel" ShowInEdit="true"></GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
-</TelerikGrid>
+</TelerikGrid>*@
+
+<TelerikListView Data=@logEntries
+                 Pageable="true"
+                 Height="500px"
+                 OnUpdate="@UpdateHandler"
+                 OnDelete="@DeleteHandler"
+                 OnCreate="@CreateHandler">
+    <HeaderTemplate>
+        <ListViewCommandButton Command="Add">Add</ListViewCommandButton>
+    </HeaderTemplate>
+    <Template>
+        <div class="k-card k-card-horizontal">
+            <div class="k-card-body">
+                <div class="k-hbox k-justify-content-between k-flex-wrap mr-sm">
+                    <div class="product-group" >
+                        <div>
+                            <h4 class="k-card-title">
+                                @{
+                                    var log = context as RbsLogEntry;
+                                    var statusCode = entryTypes.FirstOrDefault(j => j.Id == log.EntryTypeId)?.EntryType;
+                                    @statusCode;
+                                                                        ;
+                                }
+                            </h4>
+                           @* <div align="right">@context.DateAdded.ToShortDateString()</div>*@
+                        </div>
+                        
+                        <div class="product-group">
+                        @context.Amount?.ToString("C")
+                        </div>
+                        <h5 class="k-card-subtitle">@context.LogDescription</h5>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+        <div  class="product-actions" align="right">
+            <ListViewCommandButton Command="Edit" FillMode="@(ThemeConstants.Button.FillMode.Flat)"  Class="mb-sm">Edit</ListViewCommandButton>
+            <ListViewCommandButton Command="Delete" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Class="mb-sm">Delete</ListViewCommandButton>
+        </div>
+    </Template>
+    <EditTemplate>
+        <div class="k-card k-card-horizontal">
+            <div class="k-card-body">
+                <div class="k-hbox k-justify-content-between k-flex-wrap mr-sm">
+                    <div class="product-group">
+                        <label class="editor-label">Entry Type</label>
+                        @{                            
+                            var log = context as RbsLogEntry;
+                            <TelerikDropDownList Data="@entryTypes"
+                                                 @bind-Value="@log.EntryTypeId"
+                                                 DefaultText="Choose Value..."
+                                             TextField="EntryType"
+                                             ValueField="Id">
+                            </TelerikDropDownList>                
+                        } 
+                        <div>
+                            <label class="editor-label">Amount</label>
+                            <TelerikNumericTextBox Decimals="2" Format="C" @bind-Value="@context.Amount" Class="mb-md"></TelerikNumericTextBox>
+                        </div>                       
+                    </div>
+                    <div class="product-group">
+                        <label class="editor-label">Description</label>
+                        <TelerikTextBox @bind-Value="@context.LogDescription"></TelerikTextBox>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="product-actions" align="right">
+            <ListViewCommandButton Command="Save" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Class="mb-sm">Save</ListViewCommandButton>
+            <ListViewCommandButton Command="Cancel" FillMode="@(ThemeConstants.Button.FillMode.Flat)" Class="mb-sm">Cancel</ListViewCommandButton>
+        </div>
+    </EditTemplate>
+</TelerikListView>
+<div padding-bottom="20px"></div>
 
 @code {
     [Parameter]
@@ -66,41 +143,114 @@
         entryTypes = await BusinessService.GetAllRbsEntryTypes();
     }
 
-    async Task UpdateHandler(GridCommandEventArgs args)
+    public void UpdateHandler(ListViewCommandEventArgs args)
     {
         var log = GetDataObject(args);
         log.JobId = int.Parse(Id);
-        await BusinessService.UpdateRbsLogEntry(log);
-        await GetGridData();
+        BusinessService.UpdateRbsLogEntry(log);
+        GetGridData();
     }
 
-    async Task DeleteHandler(GridCommandEventArgs args)
+    public void DeleteHandler(ListViewCommandEventArgs args)
     {
-        await BusinessService.DeleteRbsLogEntry(GetDataObject(args).Id);
-        await GetGridData();
+        BusinessService.DeleteRbsLogEntry(GetDataObject(args).Id);
+        GetGridData();
     }
 
-    async Task CreateHandler(GridCommandEventArgs args)
+    public void CreateHandler(ListViewCommandEventArgs args)
     {
         var log = GetDataObject(args);
         log.JobId = int.Parse(Id);
-        await BusinessService.CreateRbsLogEntry(log);
-        await GetGridData();
+        BusinessService.CreateRbsLogEntry(log);
+        GetGridData();
     }
 
-    async Task CancelHandler(GridCommandEventArgs args)
+    async Task CancelHandler(ListViewCommandEventArgs args)
     {
-        await Task.Delay(1000); //simulate actual long running async operation
+        //await Task.Delay(1000); //simulate actual long running async operation
     }
 
-    async Task GetGridData()
-    {
-        logEntries = await BusinessService.GetAllRbsLogEntrys(int.Parse(Id));
-    }
+    async Task GetGridData() => logEntries = await BusinessService.GetAllRbsLogEntrys(int.Parse(Id));
 
-    RbsLogEntry GetDataObject(GridCommandEventArgs args)
+    //async Task UpdateHandler(GridCommandEventArgs args)
+    //{
+    //    var log = GetDataObject(args);
+    //    log.JobId = int.Parse(Id);
+    //    await BusinessService.UpdateRbsLogEntry(log);
+    //    await GetGridData();
+    //}
+
+    //async Task DeleteHandler(GridCommandEventArgs args)
+    //{
+    //    await BusinessService.DeleteRbsLogEntry(GetDataObject(args).Id);
+    //    await GetGridData();
+    //}
+
+    //async Task CreateHandler(GridCommandEventArgs args)
+    //{
+    //    var log = GetDataObject(args);
+    //    log.JobId = int.Parse(Id);
+    //    await BusinessService.CreateRbsLogEntry(log);
+    //    await GetGridData();
+    //}
+
+    //async Task CancelHandler(GridCommandEventArgs args)
+    //{
+    //    await Task.Delay(1000); //simulate actual long running async operation
+    //}
+
+    RbsLogEntry GetDataObject(ListViewCommandEventArgs args)
     {
         return (RbsLogEntry)args.Item;
     }
+
+    //RbsLogEntry GetDataObject(GridCommandEventArgs args)
+    //{
+    //    return (RbsLogEntry)args.Item;
+    //}
 }
 
+<style>
+    .k-listview-header {
+        padding: 10px 20px;
+    }
+
+    .k-card {
+        padding: 5px 20px;
+        border-width: 0 0 1px 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .k-card-body {
+        padding: 0;
+    }
+
+    .k-card:last-child {
+        border-bottom: 0;
+    }
+
+    .k-card .k-card-title {
+        padding: 0;
+        font-size: 1.2em;
+        font-weight: bold;
+        line-height: normal;
+    }
+
+    .k-card-subtitle {
+        font-size: 1em;
+        margin-bottom: 0;
+    }
+
+    .product-group {
+        min-width: 45%;
+        margin-right: 16px;
+        padding: 5px 0;
+    }
+
+    .editor-label {
+        margin: 0;
+        font-size: .875em;
+        display: block;
+    }
+</style>

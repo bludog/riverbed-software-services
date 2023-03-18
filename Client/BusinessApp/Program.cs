@@ -1,6 +1,7 @@
 ﻿
 using Business.Server.Data;
 using Business.Server.Data.Repository;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ builder.Services.AddTelerikBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddTelerikBlazor();
 builder.Services.AddScoped<IRbBusinessService, RbBusinessService>();
+builder.Services.AddServerSideBlazor().AddCircuitOptions(opts => { opts.DetailedErrors = true; });
 
 builder.Services.AddCors(options =>
 {

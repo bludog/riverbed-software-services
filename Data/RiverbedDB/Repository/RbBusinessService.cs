@@ -82,11 +82,19 @@ namespace Business.Server.Data
 
         public async Task<RbsUser> GetRbsUserByEmail(string email)
         {
-            var usr = await _context.RbsUsers.Where(usr => usr.EmailAddress == email).ToListAsync();
-            if (usr == null || usr.Count == 0)
-                throw new Exception("No User found to Update.");
+            RbsUser usr = null;
+            try
+            {
+                usr = _context.RbsUsers.First(usr => usr.EmailAddress == email);
+                if (usr == null)
+                    throw new Exception("No User found to Update.");
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
 
-            return usr.FirstOrDefault();
+            return usr;
         }
         #endregion
 

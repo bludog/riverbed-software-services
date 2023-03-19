@@ -79,6 +79,15 @@ namespace Business.Server.Data
 
             return usr;
         }
+
+        public async Task<RbsUser> GetRbsUserByEmail(string email)
+        {
+            var usr = await _context.RbsUsers.Where(usr => usr.EmailAddress == email).ToListAsync();
+            if (usr == null || usr.Count == 0)
+                throw new Exception("No User found to Update.");
+
+            return usr.FirstOrDefault();
+        }
         #endregion
 
         public async Task<List<VwrbsAllJobsWithActual>> GetRbsJobs(int userId)

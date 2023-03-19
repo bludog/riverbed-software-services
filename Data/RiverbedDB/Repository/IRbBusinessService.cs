@@ -12,6 +12,8 @@ namespace Business.Server.Data
         Task UpdateRbsUser(RbsUser user);
         Task DeleteRbsUser(int id);
         Task<RbsUser> GetRbsUser(int id);
+
+        Task<RbsUser> GetRbsUserByEmail(string email);
         #endregion
 
         Task<List<VwrbsAllJobsWithActual>> GetRbsJobs(int id);

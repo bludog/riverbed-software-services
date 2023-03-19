@@ -25,7 +25,6 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
 builder.Services.AddTelerikBlazor();
 builder.Services.AddScoped<IRbBusinessService, RbBusinessService>();
 builder.Services.AddServerSideBlazor().AddCircuitOptions(opts => { opts.DetailedErrors = true; });

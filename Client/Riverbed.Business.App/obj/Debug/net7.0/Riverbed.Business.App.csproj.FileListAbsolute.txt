@@ -1,0 +1,17 @@
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\Riverbed.Business.App.csproj.AssemblyReference.cache
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\Riverbed.Business.App.GeneratedMSBuildEditorConfig.editorconfig
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\Riverbed.Business.App.AssemblyInfoInputs.cache
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\Riverbed.Business.App.AssemblyInfo.cs
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\Riverbed.Business.App.csproj.CoreCompileInputs.cache
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\Riverbed.Business.App.MvcApplicationPartsAssemblyInfo.cs
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\Riverbed.Business.App.MvcApplicationPartsAssemblyInfo.cache
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\Riverbed.Business.App.RazorAssemblyInfo.cache
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\Riverbed.Business.App.RazorAssemblyInfo.cs
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\staticwebassets\msbuild.Riverbed.Business.App.Microsoft.AspNetCore.StaticWebAssets.props
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\staticwebassets\msbuild.build.Riverbed.Business.App.props
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.Riverbed.Business.App.props
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.Riverbed.Business.App.props
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\staticwebassets.pack.json
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\Riverbed.Business.App.dll
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\refint\Riverbed.Business.App.dll
+D:\ProjectsGit\riverbed-software-services\Client\Riverbed.Business.App\obj\Debug\net7.0\Riverbed.Business.App.pdb

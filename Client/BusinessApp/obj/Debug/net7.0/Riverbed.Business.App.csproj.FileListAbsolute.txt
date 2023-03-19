@@ -120,3 +120,16 @@ D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\obj\Debug\net7.0\re
 D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\obj\Debug\net7.0\Riverbed.Business.App.pdb
 D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\obj\Debug\net7.0\Riverbed.Business.App.genruntimeconfig.cache
 D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\obj\Debug\net7.0\ref\Riverbed.Business.App.dll
+D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\bin\Debug\net7.0\Humanizer.dll
+D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\bin\Debug\net7.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.UI.dll
+D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\bin\Debug\net7.0\Microsoft.Extensions.FileProviders.Embedded.dll
+D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\bin\Debug\net7.0\Mono.TextTemplating.dll
+D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\bin\Debug\net7.0\System.CodeDom.dll
+D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\obj\Debug\net7.0\Riverbed.Business.App.MvcApplicationPartsAssemblyInfo.cs
+D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\obj\Debug\net7.0\RazorDeclaration\Shared\LoginDisplay.razor.g.cs
+D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\obj\Debug\net7.0\Razor\Shared\LoginDisplay.razor.g.cs
+D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\obj\Debug\net7.0\Razor\Areas\Identity\Pages\Account\LogOut.cshtml.g.cs
+D:\ProjectsGit\riverbed-software-services\Client\BusinessApp\obj\Debug\net7.0\Razor\Areas\Identity\Pages\Shared\_LoginPartial.cshtml.g.cs

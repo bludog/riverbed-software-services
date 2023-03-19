@@ -1,24 +1,35 @@
 ﻿
+using BlazorAppAuth.Data;
 using Business.Server.Data;
 using Business.Server.Data.Repository;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Riverbed.Business.App.Services;
+using Riverbed.Business.App.Areas.Identity;
 
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<CustomerDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CustomerDatabase")));
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddTelerikBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddTelerikBlazor();
 builder.Services.AddScoped<IRbBusinessService, RbBusinessService>();
 builder.Services.AddServerSideBlazor().AddCircuitOptions(opts => { opts.DetailedErrors = true; });
+builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 
 builder.Services.AddCors(options =>
 {
@@ -42,8 +53,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthorization();
 
-
+app.MapControllers();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 

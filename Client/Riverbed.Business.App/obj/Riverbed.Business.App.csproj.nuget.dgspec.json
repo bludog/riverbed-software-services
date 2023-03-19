@@ -54,10 +54,6 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "IgniteUI.Blazor.Trial": {
-              "target": "Package",
-              "version": "[22.2.52, )"
-            },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.4, )"
@@ -86,7 +82,7 @@
             },
             "Telerik.UI.for.Blazor.Trial": {
               "target": "Package",
-              "version": "[4.1.0, )"
+              "version": "[4.0.1, )"
             }
           },
           "imports": [

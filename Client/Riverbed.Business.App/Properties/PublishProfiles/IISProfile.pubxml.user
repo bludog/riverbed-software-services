@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA2ueNzp68fk+dFvcT8aO/dQAAAAACAAAAAAAQZgAAAAEAACAAAAD4USfTYl5IQYJ3leyBoOkvxjE2G4j6blT8Yr2dFn6jrwAAAAAOgAAAAAIAACAAAABPVFo8hIjdyvKJHKSuyi0noAmHNVmXUgNxJqcgK6antCAAAADDjkQzY1asajkeheRrynpH/f5IhoaNeF/K/NKcENGhgkAAAABglSgpUbJr/rQ9qrtS+uBtVbx68CGA19cigxB6L3HeXI22pXKH+8lYwtNu83J+xmO19v7sDydyHv+gqSaPZ+kp</EncryptedPassword>
+    <History>True|2023-03-22T02:35:59.8241421Z;True|2023-03-21T21:33:08.1709186-05:00;True|2023-03-21T21:14:57.5334511-05:00;True|2023-03-21T20:50:12.0478735-05:00;True|2023-03-21T20:48:12.1231901-05:00;True|2023-03-21T20:40:40.6212807-05:00;True|2023-03-21T20:35:01.0217796-05:00;True|2023-03-21T20:29:14.2842788-05:00;True|2023-03-21T20:24:12.4433220-05:00;True|2023-03-21T20:09:13.0994167-05:00;True|2023-03-21T20:06:37.2257706-05:00;True|2023-03-21T20:04:49.5454560-05:00;False|2023-03-21T20:00:39.3107243-05:00;False|2023-03-21T19:56:00.8400663-05:00;False|2023-03-21T19:54:17.4366197-05:00;False|2023-03-21T19:52:28.1883003-05:00;False|2023-03-21T19:51:51.5552334-05:00;True|2023-03-21T19:19:17.7022160-05:00;True|2023-03-21T19:11:05.0142043-05:00;False|2023-03-21T18:48:29.3309735-05:00;False|2023-03-21T18:29:27.0881493-05:00;True|2023-03-21T18:13:15.6316350-05:00;False|2023-03-21T17:49:44.8034482-05:00;True|2023-03-21T15:46:39.1588636-05:00;True|2023-03-21T15:31:54.7900953-05:00;True|2023-03-20T20:10:25.5116065-05:00;False|2023-03-20T19:58:25.4772185-05:00;False|2023-03-20T19:52:54.3752456-05:00;True|2023-03-20T19:23:29.2671474-05:00;False|2023-03-20T19:20:23.2740106-05:00;False|2023-03-20T19:18:43.0677938-05:00;False|2023-03-20T19:16:09.1376392-05:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="CustomerDatabase">
+      <Value>Data Source=s26.winhost.com%3bPersist Security Info=True%3bUser ID=DB_151509_riverbed_user%3bPassword=Eatmorechicken1</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=tcp:s26.winhost.com%3bDatabase=DB_151509_riverbedauth%3bUser ID=DB_151509_riverbedauth_user%3bPassword=E%40tmorechicken1</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

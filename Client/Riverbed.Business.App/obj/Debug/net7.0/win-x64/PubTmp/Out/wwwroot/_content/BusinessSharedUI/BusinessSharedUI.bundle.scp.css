@@ -1,0 +1,52 @@
+/* _content/BusinessSharedUI/Pages/JobsCOGS.razor.rz.scp.css */
+.column-layout[b-tdiwdpchd1] {
+    display: flex;
+    flex-direction: column;
+}
+.jobs-cogs-container[b-tdiwdpchd1] {
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: flex-start;
+    height: 100%;
+}
+.group[b-tdiwdpchd1] {
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: flex-start;
+    position: relative;
+    padding: 16px;
+    min-width: 50px;
+    min-height: 50px;
+    flex-grow: 1;
+    flex-basis: 0;
+}
+.group_1[b-tdiwdpchd1] {
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: flex-start;
+    position: relative;
+    min-width: 50px;
+    min-height: 50px;
+}
+.group_2[b-tdiwdpchd1] {
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: flex-start;
+    position: relative;
+    padding: 16px;
+    height: 810px;
+    min-width: 50px;
+    min-height: 50px;
+}
+.combo[b-tdiwdpchd1] {
+    height: max-content;
+    min-width: min-content;
+}
+.icon[b-tdiwdpchd1] {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+}
+.grid[b-tdiwdpchd1] {
+    min-height: 300px;
+}

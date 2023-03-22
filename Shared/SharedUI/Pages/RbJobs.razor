@@ -174,10 +174,10 @@
         NavManager.NavigateTo($"/rbjobdetails/{id}");
     }
 
-    void NavigateToEditor(int jobId) => NavManager.NavigateTo($"/editors/jobentry/{jobId}/{Id}");
+    void NavigateToEditor(int jobId) => NavManager.NavigateTo($"/rb/editors/jobentry/{jobId}/{Id}");
 
     void NavigateToNewEditor()
     {
-        NavManager.NavigateTo($"/editors/jobentry/0/{Id}");
+        NavManager.NavigateTo($"/rb/editors/jobentry/0/{Id}");
     }
 }

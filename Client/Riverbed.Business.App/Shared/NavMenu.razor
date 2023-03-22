@@ -64,7 +64,7 @@
             {
                 Id = rbsUser.Result.Id.ToString();
                 isAllowed = true;
-                userBusDispUrl = $"/userbusinessdisplay/{Id}";
+                userBusDispUrl = $"/rb/userbusinessdisplay/{Id}";
             }
             else
                 isAllowed = false;
@@ -73,6 +73,6 @@
 
     public void OnNavigateToUserDisplay()
     {
-        NavManager.NavigateTo($"/userbusinessdisplay/{Id}");
+        NavManager.NavigateTo($"/rb/userbusinessdisplay/{Id}");
     }
 }

@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Business.Server.Data
-build_property.ProjectDir = D:\ProjectsGit\RiverbedSoftwareServices\riverbed-software-services\Data\RiverbedDB\
+build_property.ProjectDir = D:\ProjectsGit\riverbed-software-services\Data\RiverbedDB\

@@ -1,0 +1,14 @@
+D:\ProjectsGit\riverbed-software-services\Data\RiverbedDB\bin\Release\net7.0\Business.Server.Data.deps.json
+D:\ProjectsGit\riverbed-software-services\Data\RiverbedDB\bin\Release\net7.0\Business.Server.Data.runtimeconfig.json
+D:\ProjectsGit\riverbed-software-services\Data\RiverbedDB\bin\Release\net7.0\Business.Server.Data.dll
+D:\ProjectsGit\riverbed-software-services\Data\RiverbedDB\bin\Release\net7.0\Business.Server.Data.pdb
+D:\ProjectsGit\riverbed-software-services\Data\RiverbedDB\obj\Release\net7.0\Business.Server.Data.csproj.AssemblyReference.cache
+D:\ProjectsGit\riverbed-software-services\Data\RiverbedDB\obj\Release\net7.0\Business.Server.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\ProjectsGit\riverbed-software-services\Data\RiverbedDB\obj\Release\net7.0\Business.Server.Data.AssemblyInfoInputs.cache
+D:\ProjectsGit\riverbed-software-services\Data\RiverbedDB\obj\Release\net7.0\Business.Server.Data.AssemblyInfo.cs
+D:\ProjectsGit\riverbed-software-services\Data\RiverbedDB\obj\Release\net7.0\Business.Server.Data.csproj.CoreCompileInputs.cache
+D:\ProjectsGit\riverbed-software-services\Data\RiverbedDB\obj\Release\net7.0\Business.Server.Data.dll
+D:\ProjectsGit\riverbed-software-services\Data\RiverbedDB\obj\Release\net7.0\refint\Business.Server.Data.dll
+D:\ProjectsGit\riverbed-software-services\Data\RiverbedDB\obj\Release\net7.0\Business.Server.Data.pdb
+D:\ProjectsGit\riverbed-software-services\Data\RiverbedDB\obj\Release\net7.0\Business.Server.Data.genruntimeconfig.cache
+D:\ProjectsGit\riverbed-software-services\Data\RiverbedDB\obj\Release\net7.0\ref\Business.Server.Data.dll

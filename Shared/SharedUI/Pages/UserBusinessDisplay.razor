@@ -4,11 +4,12 @@
 @using Business.Server.Data.Repository
 @using Business.Server.Data.Repository.Models
 @using Telerik.Blazor.Components
+@using Microsoft.AspNetCore.Identity
 
-@inject IRbBusinessService BusinessService
-@inject NavigationManager NavManager
+
 
 <h3>User Business Display</h3>
+
 
 <TelerikTabStrip TabPosition="@Telerik.Blazor.TabPosition.Top">
     <TabStripTab Title="Job COGS">
@@ -38,7 +39,8 @@
 @code {
     [Parameter]
     public string Id { get; set; }
-        
+    
+
     protected override async Task OnInitializedAsync()
     {
         

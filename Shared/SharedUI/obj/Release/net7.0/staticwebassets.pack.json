@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\ProjectsGit\\riverbed-software-services\\Shared\\SharedUI\\obj\\Release\\net7.0\\scopedcss\\projectbundle\\BusinessSharedUI.bundle.scp.css",
+      "PackagePath": "staticwebassets\\BusinessSharedUI.bundle.scp.css"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.BusinessSharedUI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.build.BusinessSharedUI.props",
+      "PackagePath": "build\\BusinessSharedUI.props"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.BusinessSharedUI.props",
+      "PackagePath": "buildMultiTargeting\\BusinessSharedUI.props"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.buildTransitive.BusinessSharedUI.props",
+      "PackagePath": "buildTransitive\\BusinessSharedUI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

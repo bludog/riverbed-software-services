@@ -1,0 +1,78 @@
+﻿@using Telerik.Blazor.Components
+@using Microsoft.AspNetCore.Identity
+@using global::Business.Server.Data;
+
+@inject IRbBusinessService BusinessService
+@inject NavigationManager NavManager
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Riverbed.Business.App</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>     
+        @if (isAllowed)
+        {
+            <AuthorizeView>
+                <Authorized>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="@userBusDispUrl">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Users
+                        </NavLink>
+                    </div>
+                </Authorized>
+            </AuthorizeView>
+        }        
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    [Parameter]
+    public string Id { get; set; }
+    public bool isAllowed { get; set; } = false;
+    public string userBusDispUrl { get; set; }
+    [CascadingParameter]
+    public Task<AuthenticationState> autenticationStateTask { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await autenticationStateTask).User;
+        if(user.Identity.IsAuthenticated)
+        {
+            var userEmail = user.Identity.Name;
+            var rbsUser = BusinessService.GetRbsUserByEmail(userEmail?.ToString());
+            if (rbsUser != null && rbsUser.Result != null)
+            {
+                Id = rbsUser.Result.Id.ToString();
+                isAllowed = true;
+                userBusDispUrl = $"/rb/userbusinessdisplay/{Id}";
+            }
+            else
+                isAllowed = false;
+        }   
+    }
+
+    public void OnNavigateToUserDisplay()
+    {
+        NavManager.NavigateTo($"/rb/userbusinessdisplay/{Id}");
+    }
+}

@@ -1,0 +1,1 @@
+"use strict";(this.webpackChunkInfragisticsBlazor=this.webpackChunkInfragisticsBlazor||[]).push([[231],{77231:(e,s,i)=>{i.r(s),i.d(s,{IgcGridExtras:()=>a});var r=i(19515),t=i(86157);class a{static ensureRegistered(){a._registered||(a._registered=!0,t.Sq.registerCons("WebPivotDateDimension",r.IgcPivotDateDimension))}}a._registered=!1}}]);
